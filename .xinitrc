@@ -5,7 +5,8 @@ usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
 
-session=${2:-startlxde}
+# xstart ~/.xinitrc session...
+session=${2:-i3}
 
 # merge in defaults and keymaps
 
