@@ -9,6 +9,7 @@ command_exists () {
 
 userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
+userhostmodmap=$HOME/.Xmodmap-$(hostname |sha256sum |head -c 16)
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
 
@@ -31,6 +32,10 @@ fi
 
 if [ -f "$usermodmap" ]; then
   xmodmap "$usermodmap"
+fi
+
+if [ -f "$userhostmodmap" ]; then
+  xmodmap "$userhostmodmap"
 fi
 
 [ -x "$HOME/.xinitrc-local" ] && "$HOME/.xinitrc-local"
