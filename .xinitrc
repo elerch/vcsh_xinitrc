@@ -18,19 +18,19 @@ session=${2:-i3}
 # merge in defaults and keymaps
 
 if [ -f $sysresources ]; then
-    xrdb -merge $sysresources
+  xrdb -merge $sysresources
 fi
 
 if [ -f $sysmodmap ]; then
-    xmodmap $sysmodmap
+  xmodmap $sysmodmap
 fi
 
 if [ -f "$userresources" ]; then
-    xrdb -merge "$userresources"
+  xrdb -merge "$userresources"
 fi
 
 if [ -f "$usermodmap" ]; then
-    xmodmap "$usermodmap"
+  xmodmap "$usermodmap"
 fi
 
 [ -x "$HOME/.xinitrc-local" ] && "$HOME/.xinitrc-local"
@@ -38,21 +38,22 @@ fi
 # start some nice programs
 
 if [ -d /etc/X11/xinit/xinitrc.d ] ; then
- for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
-  [ -x "$f" ] && . "$f"
- done
- unset f
+  for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
+    # shellcheck source=/dev/null
+    [ -x "$f" ] && source "$f"
+   done
+   unset f
 fi
 
 dbus=""
 command_exists dbus-launch && dbus="dbus-launch --exit-with-session "
 case $session in
-  startlxde      ) exec $dbus startlxde;;
-  i3             ) exec $dbus i3;;
-  i3debug        ) exec $dbus i3 --shmlog-size=26214400;;
-  xterm          ) exec $dbus /usr/bin/urxvt;;
-  kali           ) exec $dbus /usr/bin/urxvt -e ~/kali desktop;;
-  kalixfce       ) exec $dbus /usr/bin/urxvt -e ~/kali desktop xfce;;
+  startlxde      ) exec "$dbus" startlxde;;
+  i3             ) exec "$dbus" i3;;
+  i3debug        ) exec "$dbus" i3 --shmlog-size=26214400;;
+  xterm          ) exec "$dbus" /usr/bin/urxvt;;
+  kali           ) exec "$dbus" /usr/bin/urxvt -e ~/kali desktop;;
+  kalixfce       ) exec "$dbus" /usr/bin/urxvt -e ~/kali desktop xfce;;
   *) $1;;
 esac
 
