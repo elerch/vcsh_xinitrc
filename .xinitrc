@@ -30,12 +30,12 @@ if [ -f "$userresources" ]; then
   xrdb -merge "$userresources"
 fi
 
-if [ -f "$usermodmap" ]; then
-  xmodmap "$usermodmap"
-fi
-
 if [ -f "$userhostmodmap" ]; then
   xmodmap "$userhostmodmap"
+else
+  if [ -f "$usermodmap" ]; then
+    xmodmap "$usermodmap"
+  fi
 fi
 
 [ -x "$HOME/.xinitrc-local" ] && "$HOME/.xinitrc-local"
