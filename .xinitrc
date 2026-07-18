@@ -6,7 +6,7 @@ command_exists () {
   command -v "$1" > /dev/null 2>&1
   return $?
 }
-
+source $HOME/.commonrc
 userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
 userhostmodmap=$HOME/.Xmodmap-$(hostname |sha256sum |head -c 16)
